@@ -4,7 +4,7 @@ const postButton = document.getElementById('post');
 const putButton = document.getElementById('put');
 const patchButton = document.getElementById('patch');
 const deleteButton = document.getElementById('delete');
-
+const buttOn = document.getElementById('ButtOn');
 /**
  * GET /user/:id
  * Posílá GET požadavek na server. Server přepošle data zpátky.
@@ -122,4 +122,24 @@ const deleteEvent = async () => {
     }
 }
 deleteButton.onclick = deleteEvent;
+
+const ButtOnEvent = async () => {
+    try {
+        const res = await fetch('http://127.0.0.1:3000/user', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({ payload: { id: "burčáček",  nickname: "Sebyss" } })
+        });
+        const data = await res.json();
+        console.log(data);
+        info.innerHTML = `<p>${data.msg}</p>`;
+        info.innerHTML += `<p>${Object.values(data.payload)}</p>`;
+    } catch (error) {
+        info.innerText = error;
+    }
+}
+ButtOn.onclick = ButtOnEvent;
 
